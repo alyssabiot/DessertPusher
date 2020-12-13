@@ -27,6 +27,10 @@
         <variable
             name="amountSold"
             type="Integer" />
+
+        <variable
+            name="timer"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -125,6 +129,18 @@
             app:layout_constraintBottom_toTopOf="@+id/revenue_text"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
             tools:text="12" />
+
+        <TextView
+            android:id="@+id/timer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text='@{timer.toString() + "s"}'
+            android:textColor="@color/color_accent"
+            android:textSize="@dimen/medium_text_size"
+            app:layout_constraintBaseline_toBaselineOf="@+id/revenue_text"
+            app:layout_constraintStart_toStartOf="@+id/margin_start_guide" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

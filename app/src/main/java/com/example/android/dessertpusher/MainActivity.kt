@@ -96,6 +96,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
+        binding.timer = dessertTimer.secondsCount
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         binding.revenue = revenue
         binding.amountSold = dessertsSold
+        binding.timer = dessertTimer.secondsCount
 
         // Show the next dessert
         showCurrentDessert()
@@ -149,7 +151,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
      */
     private fun onShare() {
         val shareIntent = ShareCompat.IntentBuilder.from(this)
-                .setText(getString(R.string.share_text, dessertsSold, revenue))
+                .setText(getString(R.string.share_text, dessertsSold, revenue, dessertTimer.secondsCount))
                 .setType("text/plain")
                 .intent
         try {
