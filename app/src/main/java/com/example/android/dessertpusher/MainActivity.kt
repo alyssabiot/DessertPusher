@@ -18,8 +18,7 @@ package com.example.android.dessertpusher
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -37,6 +36,11 @@ const val KEY_TIMER = "key_timer"
 class MainActivity : AppCompatActivity(), LifecycleObserver {
     private var revenue = 0
     private var dessertsSold = 0
+    private var displayTimer = 0
+
+    private var handler = Handler()
+    private lateinit var runnable: Runnable
+
     private lateinit var dessertTimer: DessertTimer
 
     // Contains all the views
@@ -96,7 +100,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
-        binding.timer = dessertTimer.secondsCount
+        binding.displayTimer = dessertTimer.secondsCount
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
@@ -117,7 +121,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         binding.revenue = revenue
         binding.amountSold = dessertsSold
-        binding.timer = dessertTimer.secondsCount
 
         // Show the next dessert
         showCurrentDessert()
@@ -189,11 +192,20 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     }
 
     override fun onResume() {
+        //start handler as activity becomes visible
+        // THERE MUST BE A BETTER WAY - THIS IS A TEST TO DISPLAY TIMER ON REAL TIME ON THE VIEW
+        runnable = Runnable {
+            binding.displayTimer = dessertTimer.secondsCount
+            handler.postDelayed(runnable, 500)
+        }
+        handler.postDelayed(runnable, 500)
+
         super.onResume()
         Timber.i("onResume Called")
     }
 
     override fun onPause() {
+        handler.removeCallbacks(runnable) //stop handler when activity is not visible
         super.onPause()
         Timber.i("onPause Called")
     }

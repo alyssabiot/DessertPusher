@@ -29,7 +29,7 @@
             type="Integer" />
 
         <variable
-            name="timer"
+            name="displayTimer"
             type="Integer" />
     </data>
 
@@ -134,9 +134,8 @@
             android:id="@+id/timer_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-medium"
-            android:text='@{timer.toString() + "s"}'
+            android:text='@{displayTimer.toString() + "s"}'
             android:textColor="@color/color_accent"
             android:textSize="@dimen/medium_text_size"
             app:layout_constraintBaseline_toBaselineOf="@+id/revenue_text"
